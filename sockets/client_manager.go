@@ -4,6 +4,7 @@ import "fmt"
 
 // ClientManager stands for the hub of clients
 type ClientManager struct {
+	clients    map[*Client]bool // 这里存储所有的连接信息
 	register   chan *Client
 	unregister chan *Client
 }
@@ -19,4 +20,20 @@ func NewManger() *ClientManager {
 // Close release resources
 func (manager *ClientManager) Close() {
 	fmt.Println("release manager resources")
+}
+
+// Exec || activate the manager
+func (manager *ClientManager) Exec() {
+	for {
+		select {
+		case client := <-manager.register:
+			fmt.Println("Registing client ...")
+			manager.clients[client] = true
+		case client := <-manager.unregister:
+			if _, ok := manager.clients[client]; ok {
+				delete(manager.clients, client)
+				client.destory()
+			}
+		}
+	}
 }
