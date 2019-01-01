@@ -12,6 +12,7 @@ type ClientManager struct {
 // NewManger returns an instance of ClientManger
 func NewManger() *ClientManager {
 	return &ClientManager{
+		clients:    make(map[*Client]bool),
 		register:   make(chan *Client),
 		unregister: make(chan *Client),
 	}

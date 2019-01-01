@@ -1,7 +1,6 @@
 package sockets
 
 import (
-	"fmt"
 	"net/http"
 
 	"gitee.com/odd-socket/utils"
@@ -19,6 +18,7 @@ func serveWs(manager *ClientManager, w http.ResponseWriter, r *http.Request) {
 	utils.FailOnError(err, "Failed to upgrade a conn")
 
 	client := &Client{
+		manager:  manager,
 		conn:     conn,
 		messages: make(chan []byte, 256),
 	}
@@ -31,7 +31,6 @@ func serveWs(manager *ClientManager, w http.ResponseWriter, r *http.Request) {
 
 // Run function runs the loop for the websocket server
 func Run(manager *ClientManager) {
-	fmt.Println("this is the sockets server")
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		serveWs(manager, w, r)
 	})
