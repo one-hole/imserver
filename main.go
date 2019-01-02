@@ -10,7 +10,7 @@ var (
 
 func main() {
 	manager := sockets.NewManger()
-	defer manager.Close()
+	// rabbit := sources.RabbitInstance()
 	go manager.Exec()
 	go sockets.Run(manager)
 	<-forever
