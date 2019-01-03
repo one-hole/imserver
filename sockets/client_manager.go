@@ -1,12 +1,15 @@
 package sockets
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // ClientManager stands for the hub of clients
 type ClientManager struct {
 	clients    map[*Client]bool // 这里存储所有的连接信息
 	register   chan *Client
 	unregister chan *Client
+	Broadcast  chan []byte
 }
 
 // NewManger returns an instance of ClientManger
@@ -15,6 +18,7 @@ func NewManger() *ClientManager {
 		clients:    make(map[*Client]bool),
 		register:   make(chan *Client),
 		unregister: make(chan *Client),
+		Broadcast:  make(chan []byte),
 	}
 }
 
@@ -34,6 +38,15 @@ func (manager *ClientManager) Exec() {
 			if _, ok := manager.clients[client]; ok {
 				delete(manager.clients, client)
 				client.destory()
+			}
+		case msgs := <-manager.Broadcast:
+			for client := range manager.clients {
+				select {
+				case client.messages <- msgs:
+				default:
+					client.destory()
+					delete(manager.clients, client)
+				}
 			}
 		}
 	}

@@ -1,9 +1,10 @@
 package sockets
 
 import (
+	"fmt"
 	"net/http"
-
 	"gitee.com/odd-socket/utils"
+	"gitee.com/odd-socket/config"
 	"github.com/gorilla/websocket"
 )
 
@@ -31,8 +32,8 @@ func serveWs(manager *ClientManager, w http.ResponseWriter, r *http.Request) {
 
 // Run function runs the loop for the websocket server
 func Run(manager *ClientManager) {
-	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc(fmt.Sprintf("/%s", config.Instance().Socket.Path), func(w http.ResponseWriter, r *http.Request) {
 		serveWs(manager, w, r)
 	})
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(fmt.Sprintf(":%s", config.Instance().Socket.Port), nil)
 }

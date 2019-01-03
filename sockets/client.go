@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	writeWait      = 5 * time.Second
-	pongWait       = 6 * time.Second
+	writeWait      = 50 * time.Second
+	pongWait       = 60 * time.Second
 	pingPeriod     = (pongWait * 9) / 10
 	maxMessageSize = 512
 )
@@ -27,7 +27,7 @@ func (c *Client) readMessageFromClient() {
 		c.manager.unregister <- c
 	}()
 	c.conn.SetReadLimit(maxMessageSize)
-	c.conn.SetReadDeadline(time.Now().Add(pongWait)) // 最多等待 pongWait 的时间 & 这个语句用来第一次
+	c.conn.SetReadDeadline(time.Now().Add(pongWait)) // 从 conn读取 最多等待 pongWait 的时间 & 这个语句用来第一次
 	c.conn.SetPongHandler(func(string) error {       // 这里设置 Pong 消息的处理器 & 如果没有收到 Pong 消息 那就会读到 Error
 		fmt.Println("Receive pong message...")
 		c.conn.SetReadDeadline(time.Now().Add(pongWait))
@@ -51,6 +51,25 @@ func (c *Client) writeMessageToClient() {
 	}()
 	for {
 		select {
+		case msg, ok := <-c.messages:
+			c.conn.SetWriteDeadline(time.Now().Add(writeWait)) // 写入 Conn 的时间
+			if !ok {
+				c.conn.WriteMessage(websocket.CloseMessage, []byte{})
+				return
+			}
+			w, err := c.conn.NextWriter(websocket.TextMessage)
+			if err != nil {
+				return
+			}
+			w.Write(msg)
+			// n := len(c.messages)
+			// for i := 0; i < n; i++ {
+			// 	w.Write([]byte{'\n'})
+			// 	w.Write(<-c.messages)
+			// }
+			if err := w.Close(); err != nil {
+				return
+			}
 		case <-ticker.C:
 			fmt.Println("Sending Ping message to client ...")
 			c.conn.SetWriteDeadline(time.Now().Add(writeWait))

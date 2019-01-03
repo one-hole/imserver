@@ -2,6 +2,7 @@ package main
 
 import (
 	"gitee.com/odd-socket/sockets"
+	"gitee.com/odd-socket/sources"
 )
 
 var (
@@ -10,8 +11,8 @@ var (
 
 func main() {
 	manager := sockets.NewManger()
-	// rabbit := sources.RabbitInstance()
-	go manager.Exec()
+	go sources.Run(manager)
 	go sockets.Run(manager)
+	go manager.Exec()
 	<-forever
 }
