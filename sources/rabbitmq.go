@@ -53,8 +53,8 @@ func Run(manager *sockets.ClientManager) {
 	utils.FailOnError(err, "Failed to open a Channel")
 	defer channel.Close()
 
-	err = channel.ExchangeDeclare(exchangeName, exchangeType, true, false, false, false, nil)
-	utils.FailOnError(err, "Failed to declare a Queue")
+	err = channel.ExchangeDeclare(exchangeName, exchangeType, false, false, false, false, nil)
+	utils.FailOnError(err, "Failed to declare a Exchange")
 
 	queue, err := channel.QueueDeclare("", false, false, true, false, nil)
 	utils.FailOnError(err, "Failed to declare a Queue")

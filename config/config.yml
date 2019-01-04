@@ -1,11 +1,7 @@
 Socket:
   path: ws
-  port: 8080
-Redis:
-  path: localhost
-  port: 6379
-  db: 0
+  port: 8000
 RabbitMQ:
-  host: localhost
+  host: 47.98.56.196
   user: guest
   password: guest
