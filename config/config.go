@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 
+	"gitee.com/odd-socket/utils"
 	"gopkg.in/yaml.v2"
 )
 
@@ -33,9 +34,10 @@ func Instance() *Conf {
 }
 
 func Config() *Conf {
-	yamlFile, _ := ioutil.ReadFile("config/config.yml")
+	yamlFile, err := ioutil.ReadFile("config/config.yml")
+	utils.FailOnError(err, "Open config file err")
 	conf := new(Conf)
-	err := yaml.Unmarshal(yamlFile, conf)
+	err = yaml.Unmarshal(yamlFile, conf)
 	if err != nil {
 		log.Fatalln(err)
 	}

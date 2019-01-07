@@ -77,6 +77,7 @@ func Run(manager *sockets.ClientManager) {
 
 // Private
 func newInstance() *RabbitSource {
+	fmt.Println(fmt.Sprintf("amqp://%s:%s@%s:5672/", config.Instance().Rabbit.User, config.Instance().Rabbit.Password, config.Instance().Rabbit.Host))
 	conn, _ := amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:5672/", config.Instance().Rabbit.User, config.Instance().Rabbit.Password, config.Instance().Rabbit.Host))
 	return &RabbitSource{
 		conn: conn,
