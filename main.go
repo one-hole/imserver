@@ -4,8 +4,8 @@ import (
 	"log"
 	"os"
 
-	"gitee.com/odd-socket/sockets"
-	"gitee.com/odd-socket/sources"
+	"github.com/w-zengtao/socket-server/sockets"
+	"github.com/w-zengtao/socket-server/sources"
 )
 
 func init() {

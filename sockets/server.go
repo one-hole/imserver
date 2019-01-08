@@ -3,9 +3,10 @@ package sockets
 import (
 	"fmt"
 	"net/http"
-	"gitee.com/odd-socket/utils"
-	"gitee.com/odd-socket/config"
+
 	"github.com/gorilla/websocket"
+	"github.com/w-zengtao/socket-server/config"
+	"github.com/w-zengtao/socket-server/utils"
 )
 
 var upgrader = websocket.Upgrader{

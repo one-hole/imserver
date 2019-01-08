@@ -4,8 +4,8 @@ import (
 	"io/ioutil"
 	"log"
 
-	"gitee.com/odd-socket/utils"
-	"gopkg.in/yaml.v2"
+	"github.com/w-zengtao/socket-server/utils"
+	yaml "gopkg.in/yaml.v2"
 )
 
 var instance *Conf

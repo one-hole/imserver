@@ -10,10 +10,10 @@ package sources
 import (
 	"fmt"
 
-	"gitee.com/odd-socket/config"
-	"gitee.com/odd-socket/sockets"
-	"gitee.com/odd-socket/utils"
 	"github.com/streadway/amqp"
+	"github.com/w-zengtao/socket-server/config"
+	"github.com/w-zengtao/socket-server/sockets"
+	"github.com/w-zengtao/socket-server/utils"
 )
 
 var instance *RabbitSource
@@ -77,7 +77,6 @@ func Run(manager *sockets.ClientManager) {
 
 // Private
 func newInstance() *RabbitSource {
-	fmt.Println(fmt.Sprintf("amqp://%s:%s@%s:5672/", config.Instance().Rabbit.User, config.Instance().Rabbit.Password, config.Instance().Rabbit.Host))
 	conn, _ := amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:5672/", config.Instance().Rabbit.User, config.Instance().Rabbit.Password, config.Instance().Rabbit.Host))
 	return &RabbitSource{
 		conn: conn,

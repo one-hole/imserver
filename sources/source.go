@@ -6,7 +6,7 @@ package sources
 */
 
 import (
-	"gitee.com/odd-socket/sockets"
+	"github.com/w-zengtao/socket-server/sockets"
 )
 
 // Source defines the interface of datasource
