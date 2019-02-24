@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/w-zengtao/socket-server/api"
 	"github.com/w-zengtao/socket-server/sockets"
 	"github.com/w-zengtao/socket-server/sources"
 )
@@ -18,6 +19,7 @@ var (
 
 func main() {
 	manager := sockets.NewManger()
+	go api.Run()
 	go sources.Run(manager)
 	go sockets.Run(manager)
 	go manager.Exec()
