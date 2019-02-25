@@ -1,11 +1,9 @@
 package sockets
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gorilla/websocket"
-	"github.com/w-zengtao/socket-server/config"
 	"github.com/w-zengtao/socket-server/utils"
 )
 
@@ -15,7 +13,7 @@ var upgrader = websocket.Upgrader{
 }
 
 // 这里是要帮助 "客户端" 创建连接 & 实例化 Client & 注册该 Client
-func serveWs(manager *ClientManager, w http.ResponseWriter, r *http.Request) {
+func ServeWs(manager *ClientManager, w http.ResponseWriter, r *http.Request) {
 	upgrader.CheckOrigin = func(r *http.Request) bool {
 		return true
 	}
@@ -32,12 +30,4 @@ func serveWs(manager *ClientManager, w http.ResponseWriter, r *http.Request) {
 
 	go client.readMessageFromClient()
 	go client.writeMessageToClient()
-}
-
-// Run function runs the loop for the websocket server
-func Run(manager *ClientManager) {
-	http.HandleFunc(fmt.Sprintf("/%s", config.Instance().Socket.Path), func(w http.ResponseWriter, r *http.Request) {
-		serveWs(manager, w, r)
-	})
-	http.ListenAndServe(fmt.Sprintf(":%s", config.Instance().Socket.Port), nil)
 }

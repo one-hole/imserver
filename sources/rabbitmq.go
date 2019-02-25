@@ -24,10 +24,6 @@ const (
 	routingKey   = "rw-hz-odds-routing"
 )
 
-// func init() {
-// 	go Run()
-// }
-
 // RabbitSource 从 RabbitMQ 读取数据、写入 Socket Client 的 message channel
 // 因为这里只有 连接是要被复用的 & 所以只需要保持连接的对象即可
 type RabbitSource struct {

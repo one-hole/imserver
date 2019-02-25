@@ -4,13 +4,16 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/w-zengtao/socket-server/sockets"
+
 	"github.com/w-zengtao/socket-server/api/admin"
+	"github.com/w-zengtao/socket-server/api/ws"
 
 	"github.com/gin-gonic/gin"
 )
 
-func Run() {
-	router := GetRouter()
+func Run(manager *sockets.ClientManager) {
+	router := GetRouter(manager)
 
 	s := &http.Server{
 		Addr:           ":8080",
@@ -22,16 +25,16 @@ func Run() {
 	s.ListenAndServe()
 }
 
-func GetRouter() *gin.Engine {
+func GetRouter(manager *sockets.ClientManager) *gin.Engine {
 	router := gin.Default()
 	adminGroup := router.Group("")
 	{
 		adminGroup.GET("/connections", admin.Connections)
 	}
 
-	//wsGroup := router.Group("/ws")
-	//{
-	//	wsGroup.GET("", ws.Run)
-	//}
+	wsGroup := router.Group("/ws")
+	{
+		wsGroup.GET("", ws.Run(manager))
+	}
 	return router
 }
