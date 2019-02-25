@@ -19,9 +19,8 @@ var (
 
 func main() {
 	manager := sockets.NewManger()
-	go api.Run()
+	go api.Run(manager)
 	go sources.Run(manager)
-	go sockets.Run(manager)
 	go manager.Exec()
 	<-forever
 }
