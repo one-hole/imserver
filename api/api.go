@@ -14,7 +14,6 @@ import (
 
 func Run(manager *sockets.ClientManager) {
 	router := GetRouter(manager)
-
 	s := &http.Server{
 		Addr:           ":8080",
 		Handler:        router,
@@ -30,6 +29,7 @@ func GetRouter(manager *sockets.ClientManager) *gin.Engine {
 	adminGroup := router.Group("")
 	{
 		adminGroup.GET("/connections", admin.Connections)
+		adminGroup.GET("/managers", admin.Managers)
 	}
 
 	wsGroup := router.Group("/ws")
