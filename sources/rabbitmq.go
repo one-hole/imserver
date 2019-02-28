@@ -43,8 +43,8 @@ func Close() {
 
 }
 
-// Run will call in goroutines
-func Run(manager *sockets.ClientManager) {
+// RunRabbit will call in goroutines
+func RunRabbit(manager *sockets.ClientManager) {
 	channel, err := RabbitInstance().conn.Channel()
 	utils.FailOnError(err, "Failed to open a Channel")
 	defer channel.Close()
@@ -59,6 +59,8 @@ func Run(manager *sockets.ClientManager) {
 	utils.FailOnError(err, "Failed to bind a queue")
 
 	msgs, err := channel.Consume(queue.Name, "", true, false, false, false, nil)
+
+	utils.FailOnError(err, "Failed to consume the queue")
 
 	fmt.Println("Before of datasource Run()")
 
