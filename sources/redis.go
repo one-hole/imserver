@@ -25,12 +25,17 @@ func RedisInstance() *RedisSource {
 }
 
 func newRedisInstance() *RedisSource {
+	redisdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       12,
+	})
+	_, err := redisdb.Ping().Result()
+	if err != nil {
+		panic(err)
+	}
 	return &RedisSource{
-		client: redis.NewClient(&redis.Options{
-			Addr:     "localhost:6379",
-			Password: "",
-			DB:       12,
-		}),
+		client: redisdb,
 	}
 }
 
