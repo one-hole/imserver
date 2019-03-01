@@ -23,7 +23,6 @@ func main() {
 	manager := sockets.NewManger()
 	variable.Managers = append(variable.Managers, manager)
 	go api.Run(manager)
-	go sources.RunRabbit(manager)
 	go sources.RunRedis(manager)
 	go manager.Exec()
 
