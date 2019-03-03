@@ -25,6 +25,7 @@ func Run(manager *sockets.ClientManager) {
 }
 
 func GetRouter(manager *sockets.ClientManager) *gin.Engine {
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	adminGroup := router.Group("")
 	{
