@@ -25,27 +25,27 @@ func RedisInstance() *RedisSource {
 }
 
 func newRedisInstance() *RedisSource {
-	redisdb := redis.NewClient(&redis.Options{
-		Addr:     "127.0.0.1:6379",
-		Password: "",
+	redisClient := redis.NewClient(&redis.Options{
+		Addr:     "10.10.5.79:6379",
 		DB:       12,
+		PoolSize: 20,
 	})
-	_, err := redisdb.Ping().Result()
+	var _, err = redisClient.Ping().Result()
 	if err != nil {
 		panic(err)
 	}
 	return &RedisSource{
-		client: redisdb,
+		client: redisClient,
 	}
 }
 
 // RunRedis will called in goroutines
 func RunRedis(manager *sockets.ClientManager) {
 
-	pubsub := RedisInstance().client.Subscribe(pushChannelName)
-	defer pubsub.Close()
+	pubSub := RedisInstance().client.Subscribe(pushChannelName)
+	defer pubSub.Close()
 
-	ch := pubsub.Channel()
+	ch := pubSub.Channel()
 
 	for msg := range ch {
 		manager.Broadcast <- []byte(msg.Payload)
