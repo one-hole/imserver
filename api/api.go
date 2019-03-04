@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/w-zengtao/socket-server/config"
+
 	"github.com/w-zengtao/socket-server/sockets"
 
 	"github.com/w-zengtao/socket-server/api/admin"
@@ -25,11 +27,13 @@ func Run(manager *sockets.ClientManager) {
 }
 
 func GetRouter(manager *sockets.ClientManager) *gin.Engine {
+	gin.SetMode(config.Instance().Release.Mode)
 	router := gin.Default()
 	adminGroup := router.Group("")
 	{
 		adminGroup.GET("/connections", admin.Connections)
 		adminGroup.GET("/managers", admin.Managers)
+		adminGroup.GET("/managers/:id", admin.Manager)
 	}
 
 	wsGroup := router.Group("/ws")

@@ -10,6 +10,11 @@ import (
 
 var instance *Conf
 
+type Release struct {
+	Mode   string `yaml:mode`
+	Server string `yaml:server`
+}
+
 type Socket struct {
 	Port string `yaml:"port"`
 	Path string `yaml:"path"`
@@ -22,8 +27,9 @@ type Rabbit struct {
 }
 
 type Conf struct {
-	Socket `yaml:"Socket"`
-	Rabbit `yaml:"RabbitMQ"`
+	Socket  `yaml:"Socket"`
+	Rabbit  `yaml:"RabbitMQ"`
+	Release `yaml:"Release"`
 }
 
 func Instance() *Conf {
