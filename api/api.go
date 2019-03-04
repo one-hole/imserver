@@ -15,7 +15,7 @@ import (
 func Run(manager *sockets.ClientManager) {
 	router := GetRouter(manager)
 	s := &http.Server{
-		Addr:           ":8080",
+		Addr:           ":8000",
 		Handler:        router,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
