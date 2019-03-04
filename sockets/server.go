@@ -1,10 +1,10 @@
 package sockets
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gorilla/websocket"
-	"github.com/w-zengtao/socket-server/utils"
 )
 
 var upgrader = websocket.Upgrader{
@@ -18,7 +18,11 @@ func ServeWs(manager *ClientManager, w http.ResponseWriter, r *http.Request) {
 		return true
 	}
 	conn, err := upgrader.Upgrade(w, r, nil)
-	utils.FailOnError(err, "Failed to upgrade a conn")
+
+	if err != nil {
+		log.Println(err)
+		return
+	}
 
 	client := &Client{
 		manager:  manager,
