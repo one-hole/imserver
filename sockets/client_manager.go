@@ -27,6 +27,11 @@ func (manager *ClientManager) Close() {
 	fmt.Println("release manager resources")
 }
 
+// Clients returns all connected clients
+func (manager *ClientManager) Clients() map[*Client]bool {
+	return manager.clients
+}
+
 // Exec || activate the manager
 func (manager *ClientManager) Exec() {
 	for {

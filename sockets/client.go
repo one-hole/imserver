@@ -21,6 +21,10 @@ type Client struct {
 	messages chan []byte
 }
 
+func (c *Client) Conn() *websocket.Conn {
+	return c.conn
+}
+
 // 这里暂时读消息只读心跳包
 func (c *Client) readMessageFromClient() {
 	defer func() {

@@ -9,6 +9,7 @@ package sources
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/streadway/amqp"
 	"github.com/w-zengtao/socket-server/config"
@@ -75,7 +76,10 @@ func RunRabbit(manager *sockets.ClientManager) {
 
 // Private
 func newInstance() *RabbitSource {
-	conn, _ := amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:5672/", config.Instance().Rabbit.User, config.Instance().Rabbit.Password, config.Instance().Rabbit.Host))
+	conn, err := amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:5672/", config.Instance().Rabbit.User, config.Instance().Rabbit.Password, config.Instance().Rabbit.Host))
+	if err != nil {
+		log.Fatal(err)
+	}
 	return &RabbitSource{
 		conn: conn,
 	}

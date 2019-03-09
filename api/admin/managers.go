@@ -1,13 +1,12 @@
 package admin
 
 import (
-	"fmt"
 	"log"
 	"strconv"
-
-	"github.com/w-zengtao/socket-server/sockets"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/w-zengtao/socket-server/sockets"
 	"github.com/w-zengtao/socket-server/variable"
 )
 
@@ -15,6 +14,29 @@ func Managers(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"data": loadManagers(),
 		"meta": meta(),
+	})
+}
+
+func Manager(c *gin.Context) {
+	var manager = loadManager(c)
+	var connsMap = connectionsByManager(manager)
+
+	type conn struct {
+		RemoteAddr  string `json:"IP"`
+		ConnectedAt time.Time
+	}
+
+	var indexAry = make([]conn, 0, 10)
+
+	for key, _ := range connsMap {
+		indexAry = append(indexAry, conn{
+			RemoteAddr:  key.Conn().RemoteAddr().String(),
+			ConnectedAt: time.Now(),
+		})
+	}
+
+	c.JSON(200, gin.H{
+		"data": indexAry,
 	})
 }
 
@@ -36,13 +58,9 @@ func loadManager(c *gin.Context) *sockets.ClientManager {
 	return manager
 }
 
-func connectionsByManager(m *sockets.ClientManager) {
-	fmt.Println("abc")
-}
-
-func Manager(c *gin.Context) {
-	var manager = loadManager(c)
-	connectionsByManager(manager)
+func connectionsByManager(m *sockets.ClientManager) map[*sockets.Client]bool {
+	var conns = m.Clients()
+	return conns
 }
 
 func meta() map[string]interface{} {
