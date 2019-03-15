@@ -4,18 +4,16 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/w-zengtao/socket-server/config"
-
-	"github.com/w-zengtao/socket-server/sockets"
-
-	"github.com/w-zengtao/socket-server/api/admin"
-	"github.com/w-zengtao/socket-server/api/ws"
-
 	"github.com/gin-gonic/gin"
+	"github.com/w-zengtao/socket-server/api/admin/connections"
+	"github.com/w-zengtao/socket-server/api/admin/managers"
+	"github.com/w-zengtao/socket-server/api/ws"
+	"github.com/w-zengtao/socket-server/config"
+	"github.com/w-zengtao/socket-server/sockets"
 )
 
 func Run(manager *sockets.ClientManager) {
-	router := GetRouter(manager)
+	router := getRouter(manager)
 	s := &http.Server{
 		Addr:           "0.0.0.0:8080",
 		Handler:        router,
@@ -26,14 +24,14 @@ func Run(manager *sockets.ClientManager) {
 	s.ListenAndServe()
 }
 
-func GetRouter(manager *sockets.ClientManager) *gin.Engine {
+func getRouter(manager *sockets.ClientManager) *gin.Engine {
 	gin.SetMode(config.Instance().Release.Mode)
 	router := gin.Default()
 	adminGroup := router.Group("")
 	{
-		adminGroup.GET("/connections", admin.Connections)
-		adminGroup.GET("/managers", admin.Managers)
-		adminGroup.GET("/managers/:id", admin.Manager)
+		adminGroup.GET("/connections", connections.Index)
+		adminGroup.GET("/managers", managers.Index)
+		adminGroup.GET("/managers/:id", managers.Show)
 	}
 
 	wsGroup := router.Group("/ws")
