@@ -4,9 +4,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/w-zengtao/socket-server/variable"
-
 	"github.com/w-zengtao/socket-server/api"
+	"github.com/w-zengtao/socket-server/models"
 	"github.com/w-zengtao/socket-server/sockets"
 	"github.com/w-zengtao/socket-server/sources"
 )
@@ -21,7 +20,7 @@ var (
 
 func main() {
 	manager := sockets.NewManger()
-	variable.Managers = append(variable.Managers, manager)
+	models.Managers = append(models.Managers, manager)
 	go api.Run(manager)
 	go sources.RunRabbit(manager)
 	go sources.RunRedis(manager)

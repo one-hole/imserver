@@ -1,4 +1,4 @@
-package variable
+package models
 
 import "github.com/w-zengtao/socket-server/sockets"
 

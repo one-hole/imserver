@@ -12,6 +12,7 @@ import (
 	"github.com/w-zengtao/socket-server/sockets"
 )
 
+// Run start Gin server
 func Run(manager *sockets.ClientManager) {
 	router := getRouter(manager)
 	s := &http.Server{
@@ -30,10 +31,13 @@ func getRouter(manager *sockets.ClientManager) *gin.Engine {
 	adminGroup := router.Group("")
 	{
 		adminGroup.GET("/connections", connections.Index)
+		adminGroup.DELETE("/managers/:manager_id/connections/:id", connections.Delete)
+
 		adminGroup.GET("/managers", managers.Index)
 		adminGroup.GET("/managers/:id", managers.Show)
 	}
 
+	// 这里之后可以定义各种条件来决定加入的 Room 等
 	wsGroup := router.Group("/ws")
 	{
 		wsGroup.GET("", ws.Run(manager))

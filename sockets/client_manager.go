@@ -37,11 +37,9 @@ func (manager *ClientManager) Exec() {
 	for {
 		select {
 		case client := <-manager.register:
-			fmt.Println("Registing client ...")
 			manager.clients[client] = true
 		case client := <-manager.unregister:
 			if _, ok := manager.clients[client]; ok {
-				delete(manager.clients, client)
 				client.destory()
 			}
 		case msgs := <-manager.Broadcast:
@@ -50,7 +48,6 @@ func (manager *ClientManager) Exec() {
 				case client.messages <- msgs:
 				default:
 					client.destory()
-					delete(manager.clients, client)
 				}
 			}
 		}

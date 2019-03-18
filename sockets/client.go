@@ -84,8 +84,13 @@ func (c *Client) writeMessageToClient() {
 	}
 }
 
+// Destory exports destory()
+func (c *Client) Destory() {
+	c.destory()
+}
+
 func (c *Client) destory() {
-	fmt.Println("Closing Client ...")
+	delete(c.manager.clients, c)
 	c.conn.Close()
 	close(c.messages)
 }

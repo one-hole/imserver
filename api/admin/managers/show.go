@@ -1,13 +1,10 @@
 package managers
 
 import (
-	"log"
-	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/w-zengtao/socket-server/sockets"
-	"github.com/w-zengtao/socket-server/variable"
 )
 
 // Show - The handler of GET /managers/:id
@@ -29,16 +26,6 @@ func Show(c *gin.Context) {
 		"data": ary,
 	})
 
-}
-
-func loadManager(c *gin.Context) *sockets.ClientManager {
-	var id, err = strconv.Atoi(c.Param("id"))
-	if err != nil {
-		log.Println(err)
-		return nil
-	}
-	manager := variable.Managers[id-1]
-	return manager
 }
 
 func connectionsByManager(m *sockets.ClientManager) map[*sockets.Client]bool {
