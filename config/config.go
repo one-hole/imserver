@@ -26,10 +26,20 @@ type Rabbit struct {
 	Password string `yaml:"password"`
 }
 
+type MySQL struct {
+	Host        string `yaml:"host"`
+	Port        string `yaml:"port"`
+	User        string `yaml:"user"`
+	Password    string `yaml:"password"`
+	Connections int    `yaml:"connections"`
+	Idles       int    `yaml:"idles"`
+}
+
 type Conf struct {
 	Socket  `yaml:"Socket"`
 	Rabbit  `yaml:"RabbitMQ"`
 	Release `yaml:"Release"`
+	MySQL   `yaml:"MySQL"`
 }
 
 func Instance() *Conf {

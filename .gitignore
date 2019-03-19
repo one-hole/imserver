@@ -1,2 +1,5 @@
 config/config.yml
+config/config_pro.yml
+config/config_sta.yml
+config/config_dev.yml
 .idea/

@@ -26,5 +26,7 @@ func main() {
 	go sources.RunRedis(manager)
 	go manager.Exec()
 
+	models.Init()
+
 	<-forever
 }

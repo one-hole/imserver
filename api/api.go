@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/w-zengtao/socket-server/api/admin/connections"
 	"github.com/w-zengtao/socket-server/api/admin/managers"
+	"github.com/w-zengtao/socket-server/api/admin/mysql"
 	"github.com/w-zengtao/socket-server/api/ws"
 	"github.com/w-zengtao/socket-server/config"
 	"github.com/w-zengtao/socket-server/sockets"
@@ -30,6 +31,8 @@ func getRouter(manager *sockets.ClientManager) *gin.Engine {
 	router := gin.Default()
 	adminGroup := router.Group("")
 	{
+		adminGroup.GET("/mysql", mysql.Index)
+
 		adminGroup.GET("/connections", connections.Index)
 		adminGroup.DELETE("/managers/:manager_id/connections/:id", connections.Delete)
 
