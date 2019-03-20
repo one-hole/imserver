@@ -5,13 +5,13 @@ import (
 	"log"
 	"time"
 
-	"github.com/w-zengtao/socket-server/config"
-
+	_ "github.com/go-sql-driver/mysql" // mysql driver
 	"github.com/jinzhu/gorm"
+	"github.com/w-zengtao/socket-server/config"
 )
 
 var (
-	db *gorm.DB
+	DB *gorm.DB
 )
 
 func openDB(host, port, username, password, name string) *gorm.DB {
@@ -40,7 +40,7 @@ func configureDB(db *gorm.DB) {
 
 // SQLIsWoking returns the boolean state of db connection
 func SQLIsWoking() bool {
-	if db == nil {
+	if DB == nil {
 		return false
 	}
 	return true
@@ -48,15 +48,20 @@ func SQLIsWoking() bool {
 
 // Init starts database connections
 func Init() {
-	db = openDB(
+	DB = openDB(
 		config.Instance().MySQL.Host,
 		config.Instance().MySQL.Port,
 		config.Instance().MySQL.User,
 		config.Instance().MySQL.Password,
 		"socket-server",
 	)
+
+	DB.AutoMigrate(&Tenant{})
+	DB.AutoMigrate(&Server{})
+	
+	seed()
 }
 
 func close() {
-	db.Close()
+	DB.Close()
 }
