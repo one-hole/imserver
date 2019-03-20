@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/w-zengtao/socket-server/api/admin/tenants"
+
 	"github.com/gin-gonic/gin"
 	"github.com/w-zengtao/socket-server/api/admin/connections"
 	"github.com/w-zengtao/socket-server/api/admin/managers"
@@ -38,6 +40,8 @@ func getRouter(manager *sockets.ClientManager) *gin.Engine {
 
 		adminGroup.GET("/managers", managers.Index)
 		adminGroup.GET("/managers/:id", managers.Show)
+
+		adminGroup.GET("/tenants/:id", tenants.Show)
 	}
 
 	// 这里之后可以定义各种条件来决定加入的 Room 等
