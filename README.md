@@ -32,7 +32,11 @@ ClientManger 管理所有的连接 & 连接的释放
 
 ----
 
-RoadMap - TODO
+正在处理
 
 * 希望有 Web Rest APi 管理 ([Gin](https://github.com/gin-gonic/gin))
 * 希望能基于上述 APi 加入可视化管理
+
+下一步
+
+* 分布式 - 主（Master）、从（Slave）、调度（Schedule）、注册（Register) 真他妈越走越偏了

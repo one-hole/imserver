@@ -1,4 +1,4 @@
-package tenant
+package models
 
 import (
 	"github.com/jinzhu/gorm"
@@ -14,4 +14,11 @@ type Tenant struct {
 	ReceivePort string `gorm:"column:receive_port"`
 	ServerCount int    `gorm:"default:0"`
 	Enable      bool   `gorm:"default:true;index:idx_able_tenants"`
+
+	Servers []Server
+}
+
+// TableName set table's name
+func (Tenant) TableName() string {
+	return "tenants"
 }
