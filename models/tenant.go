@@ -1,6 +1,8 @@
 package models
 
 import (
+	"database/sql"
+
 	"github.com/jinzhu/gorm"
 )
 
@@ -8,12 +10,12 @@ import (
 type Tenant struct {
 	gorm.Model
 	Name        string
-	Email       string `gorm:"size:100;unique_index"`
-	Phone       string `gorm:"size:20;unique_index"`
 	Password    string
-	ReceivePort string `gorm:"column:receive_port"`
-	ServerCount int    `gorm:"default:0"`
-	Enable      bool   `gorm:"default:true;index:idx_able_tenants"`
+	ReceivePort string         `gorm:"column:receive_port"`
+	ServerCount int            `gorm:"default:0"`
+	Enable      bool           `gorm:"default:true;index:idx_able_tenants"`
+	Email       sql.NullString `gorm:"size:100;unique_index"`
+	Phone       sql.NullString `gorm:"size:20;unique_index"`
 
 	Servers []Server
 }
