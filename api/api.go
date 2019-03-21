@@ -47,7 +47,8 @@ func getRouter(manager *sockets.ClientManager) *gin.Engine {
 	// 这里之后可以定义各种条件来决定加入的 Room 等
 	wsGroup := router.Group("/ws")
 	{
-		wsGroup.GET("", ws.Run(manager))
+		wsGroup.GET("", ws.Index())
+		wsGroup.GET("/:name", ws.Index())
 	}
 	return router
 }

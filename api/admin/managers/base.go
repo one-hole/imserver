@@ -5,7 +5,6 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/w-zengtao/socket-server/models"
 	"github.com/w-zengtao/socket-server/sockets"
 )
 
@@ -20,6 +19,6 @@ func loadManager(c *gin.Context) *sockets.ClientManager {
 
 // ManagerByIndex - Get the mananger by id
 func ManagerByIndex(index int) *sockets.ClientManager {
-	manager := models.Managers[index]
-	return manager
+	// manager := models.Managers[index]
+	return nil
 }

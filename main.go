@@ -19,14 +19,21 @@ var (
 )
 
 func main() {
-	manager := sockets.NewManger()
-	models.Managers = append(models.Managers, manager)
+	manager := newManager("")
+
 	go api.Run(manager)
 	go sources.RunRabbit(manager)
 	go sources.RunRedis(manager)
 	go manager.Exec()
 
-	models.Init()
-
 	<-forever
+}
+
+func newManager(name string) *sockets.ClientManager {
+	if name == "" {
+		name = "default"
+	}
+	manager := sockets.NewManger()
+	models.Managers[name] = manager
+	return manager
 }
