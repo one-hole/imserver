@@ -2,7 +2,6 @@ package managers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/w-zengtao/socket-server/models"
 )
 
 // Index - The handler of GET /managers
@@ -15,9 +14,9 @@ func Index(c *gin.Context) {
 
 func loadManagers() []int {
 	var ary = make([]int, 0, 10)
-	for index := range models.Managers {
-		ary = append(ary, index+1)
-	}
+	// for index := range models.Managers {
+	// 	ary = append(ary, index+1)
+	// }
 	return ary
 }
 
