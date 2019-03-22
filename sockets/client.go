@@ -2,14 +2,15 @@ package sockets
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/gorilla/websocket"
 )
 
 const (
-	writeWait      = 50 * time.Second
-	pongWait       = 60 * time.Second
+	writeWait      = 5 * time.Second
+	pongWait       = 6 * time.Second
 	pingPeriod     = (pongWait * 9) / 10
 	maxMessageSize = 512
 )
@@ -75,7 +76,7 @@ func (c *Client) writeMessageToClient() {
 				return
 			}
 		case <-ticker.C:
-			fmt.Println("Sending Ping message to client ...")
+			log.Println("Sending Ping message to client ...")
 			c.conn.SetWriteDeadline(time.Now().Add(writeWait))
 			if err := c.conn.WriteMessage(websocket.PingMessage, nil); err != nil {
 				return
