@@ -22,7 +22,7 @@ var instance *RabbitSource
 const (
 	exchangeName = "rw-hz-odds-direct"
 	exchangeType = "direct"
-	routingKey   = "rw-hz-odds-routing"
+	// routingKey   = "rw-hz-odds-routing"
 )
 
 // RabbitSource 从 RabbitMQ 读取数据、写入 Socket Client 的 message channel
@@ -44,8 +44,11 @@ func Close() {
 
 }
 
-// RunRabbit will call in goroutines
-func RunRabbit(manager *sockets.ClientManager) {
+/*
+RunRabbit will call in goroutines
+exchangeName | routingKey
+*/
+func RunRabbit(manager *sockets.ClientManager, routeKey string) {
 	channel, err := RabbitInstance().conn.Channel()
 	utils.FailOnError(err, "Failed to open a Channel")
 	defer channel.Close()
@@ -56,7 +59,7 @@ func RunRabbit(manager *sockets.ClientManager) {
 	queue, err := channel.QueueDeclare("", false, false, true, false, nil)
 	utils.FailOnError(err, "Failed to declare a Queue")
 
-	err = channel.QueueBind(queue.Name, routingKey, exchangeName, false, nil)
+	err = channel.QueueBind(queue.Name, routeKey, exchangeName, false, nil)
 	utils.FailOnError(err, "Failed to bind a queue")
 
 	msgs, err := channel.Consume(queue.Name, "", true, false, false, false, nil)

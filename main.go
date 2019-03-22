@@ -20,11 +20,7 @@ var (
 
 func main() {
 	manager := newManager("")
-
-	go api.Run(manager)
-	go sources.RunRabbit(manager)
-	go sources.RunRedis(manager)
-	go manager.Exec()
+	runManager(manager)
 
 	<-forever
 }
@@ -36,4 +32,11 @@ func newManager(name string) *sockets.ClientManager {
 	manager := sockets.NewManger()
 	models.Managers[name] = manager
 	return manager
+}
+
+func runManager(m *sockets.ClientManager) {
+	go api.Run(m)
+	go sources.RunRedis(m)
+	go sources.RunRabbit(m, "rw-hz-odds-routing")
+	go m.Exec()
 }
