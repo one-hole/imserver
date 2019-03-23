@@ -55,11 +55,6 @@ func Init() {
 		config.Instance().MySQL.Password,
 		"socket-server",
 	)
-
-	DB.AutoMigrate(&Tenant{})
-	DB.AutoMigrate(&Server{})
-	
-	seed()
 }
 
 func close() {

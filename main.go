@@ -19,8 +19,13 @@ var (
 )
 
 func main() {
-	manager := newManager("")
-	runManager(manager)
+
+	go api.Run()
+
+	runManager(newManager("default"), "rw-hz-odds-routing")
+	runManager(newManager("tenants"), "rw-hk-tenants-routing")
+
+	models.Init()
 
 	<-forever
 }
@@ -34,9 +39,8 @@ func newManager(name string) *sockets.ClientManager {
 	return manager
 }
 
-func runManager(m *sockets.ClientManager) {
-	go api.Run(m)
+func runManager(m *sockets.ClientManager, rabbitRouteKey string) {
 	go sources.RunRedis(m)
-	go sources.RunRabbit(m, "rw-hz-odds-routing")
+	go sources.RunRabbit(m, rabbitRouteKey)
 	go m.Exec()
 }
