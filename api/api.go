@@ -12,12 +12,11 @@ import (
 	"github.com/w-zengtao/socket-server/api/admin/mysql"
 	"github.com/w-zengtao/socket-server/api/ws"
 	"github.com/w-zengtao/socket-server/config"
-	"github.com/w-zengtao/socket-server/sockets"
 )
 
 // Run start Gin server
-func Run(manager *sockets.ClientManager) {
-	router := getRouter(manager)
+func Run() {
+	router := getRouter()
 	s := &http.Server{
 		Addr:           "0.0.0.0:8080",
 		Handler:        router,
@@ -28,7 +27,7 @@ func Run(manager *sockets.ClientManager) {
 	s.ListenAndServe()
 }
 
-func getRouter(manager *sockets.ClientManager) *gin.Engine {
+func getRouter() *gin.Engine {
 	gin.SetMode(config.Instance().Release.Mode)
 	router := gin.Default()
 	adminGroup := router.Group("")
@@ -39,7 +38,7 @@ func getRouter(manager *sockets.ClientManager) *gin.Engine {
 		adminGroup.DELETE("/managers/:manager_id/connections/:id", connections.Delete)
 
 		adminGroup.GET("/managers", managers.Index)
-		adminGroup.GET("/managers/:id", managers.Show)
+		adminGroup.GET("/managers/:name", managers.Show)
 
 		adminGroup.GET("/tenants/:id", tenants.Show)
 	}

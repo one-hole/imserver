@@ -24,6 +24,5 @@ func Index() gin.HandlerFunc {
 
 func loadManager(c *gin.Context) *sockets.ClientManager {
 	name := c.Param("name")
-
 	return models.ManagerByName(name)
 }

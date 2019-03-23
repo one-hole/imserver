@@ -12,14 +12,6 @@ func Index(c *gin.Context) {
 	})
 }
 
-func loadManagers() []int {
-	var ary = make([]int, 0, 10)
-	// for index := range models.Managers {
-	// 	ary = append(ary, index+1)
-	// }
-	return ary
-}
-
 func meta() map[string]interface{} {
 	return gin.H{
 		"page": 1,
