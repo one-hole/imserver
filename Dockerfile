@@ -1,4 +1,4 @@
-FROM golang:1.11.4 AS builder
+FROM golang:1.12.1 AS builder
 RUN go version
 
 COPY . /go/src/github.com/w-zengtao/socket-server
