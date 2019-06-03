@@ -2,7 +2,7 @@ package sources
 
 import (
 	"github.com/go-redis/redis"
-	"github.com/w-zengtao/socket-server/sockets"
+	"github.com/one-hole/imserver/sockets"
 )
 
 var redisInstance *RedisSource

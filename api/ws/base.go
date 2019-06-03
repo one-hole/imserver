@@ -2,8 +2,8 @@ package ws
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/w-zengtao/socket-server/models"
-	"github.com/w-zengtao/socket-server/sockets"
+	"github.com/one-hole/imserver/models"
+	"github.com/one-hole/imserver/sockets"
 )
 
 // func Run(manager *sockets.ClientManager) gin.HandlerFunc {

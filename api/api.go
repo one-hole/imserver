@@ -4,14 +4,14 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/w-zengtao/socket-server/api/admin/tenants"
+	"github.com/one-hole/imserver/api/admin/tenants"
 
 	"github.com/gin-gonic/gin"
-	"github.com/w-zengtao/socket-server/api/admin/connections"
-	"github.com/w-zengtao/socket-server/api/admin/managers"
-	"github.com/w-zengtao/socket-server/api/admin/mysql"
-	"github.com/w-zengtao/socket-server/api/ws"
-	"github.com/w-zengtao/socket-server/config"
+	"github.com/one-hole/imserver/api/admin/connections"
+	"github.com/one-hole/imserver/api/admin/managers"
+	"github.com/one-hole/imserver/api/admin/mysql"
+	"github.com/one-hole/imserver/api/ws"
+	"github.com/one-hole/imserver/config"
 )
 
 // Run start Gin server

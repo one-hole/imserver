@@ -7,7 +7,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql" // mysql driver
 	"github.com/jinzhu/gorm"
-	"github.com/w-zengtao/socket-server/config"
+	"github.com/one-hole/imserver/config"
 )
 
 var (

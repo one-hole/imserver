@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/w-zengtao/socket-server/sockets"
+	"github.com/one-hole/imserver/sockets"
 )
 
 // Show - The handler of GET /managers/:id

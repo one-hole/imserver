@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	"github.com/w-zengtao/socket-server/utils"
+	"github.com/one-hole/imserver/utils"
 	yaml "gopkg.in/yaml.v2"
 )
 

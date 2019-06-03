@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/w-zengtao/socket-server/sockets"
+	"github.com/one-hole/imserver/sockets"
 )
 
 // Managers - 用 name 来区分 manager, 不是很好复用连接 后期还是需要引入 Room 的概念

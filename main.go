@@ -4,10 +4,10 @@ import (
 	"log"
 	"os"
 
-	"github.com/w-zengtao/socket-server/api"
-	"github.com/w-zengtao/socket-server/models"
-	"github.com/w-zengtao/socket-server/sockets"
-	"github.com/w-zengtao/socket-server/sources"
+	"github.com/one-hole/imserver/api"
+	"github.com/one-hole/imserver/models"
+	"github.com/one-hole/imserver/sockets"
+	"github.com/one-hole/imserver/sources"
 )
 
 func init() {

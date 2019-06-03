@@ -6,7 +6,7 @@ package sources
 */
 
 import (
-	"github.com/w-zengtao/socket-server/sockets"
+	"github.com/one-hole/imserver/sockets"
 )
 
 // Source defines the interface of datasource

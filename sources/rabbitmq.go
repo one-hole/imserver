@@ -11,10 +11,10 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/one-hole/imserver/config"
+	"github.com/one-hole/imserver/sockets"
 	"github.com/streadway/amqp"
-	"github.com/w-zengtao/socket-server/config"
-	"github.com/w-zengtao/socket-server/sockets"
-	"github.com/w-zengtao/socket-server/utils"
+	"github.com/one-hole/imserver/utils"
 )
 
 var instance *RabbitSource
