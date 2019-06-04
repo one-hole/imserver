@@ -1,0 +1,19 @@
+Socket:
+  path: ws
+  port: 8000
+RabbitMQ:
+  host: 127.0.0.1
+  user: guest
+  password: guest
+  exchange-name: rw-hz-odds-direct
+  routing-key: rw-hz-odds-routing
+MySQL:
+  host: 127.0.0.1
+  port: 3306
+  user: root
+  password: mypassword
+  connections: 60
+  idles: 10
+Redis:
+  addr: "host.docker.internal:6379"
+  db: 12

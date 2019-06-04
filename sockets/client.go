@@ -1,9 +1,8 @@
 package sockets
 
 import (
-	"log"
 	"time"
-	
+
 	"github.com/gorilla/websocket"
 )
 
