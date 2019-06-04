@@ -23,7 +23,7 @@ func main() {
 	go api.Run()
 
 	runManager(newManager("default"), "rw-hz-odds-routing")
-	runManager(newManager("tenants"), "rw-hk-tenants-routing")
+	//runManager(newManager("tenants"), "rw-hk-tenants-routing")
 
 	models.Init()
 
@@ -41,6 +41,6 @@ func newManager(name string) *sockets.ClientManager {
 
 func runManager(m *sockets.ClientManager, rabbitRouteKey string) {
 	go sources.RunRedis(m)
-	go sources.RunRabbit(m, rabbitRouteKey)
+	// go sources.RunRabbit(m, rabbitRouteKey)
 	go m.Exec()
 }
