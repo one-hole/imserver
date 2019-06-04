@@ -13,8 +13,8 @@ import (
 
 	"github.com/one-hole/imserver/config"
 	"github.com/one-hole/imserver/sockets"
-	"github.com/streadway/amqp"
 	"github.com/one-hole/imserver/utils"
+	"github.com/streadway/amqp"
 )
 
 var instance *RabbitSource

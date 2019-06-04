@@ -1,10 +1,9 @@
 package sockets
 
 import (
-	"fmt"
 	"log"
 	"time"
-
+	
 	"github.com/gorilla/websocket"
 )
 
@@ -34,7 +33,6 @@ func (c *Client) readMessageFromClient() {
 	c.conn.SetReadLimit(maxMessageSize)
 	c.conn.SetReadDeadline(time.Now().Add(pongWait)) // 从 conn读取 最多等待 pongWait 的时间 & 这个语句用来第一次
 	c.conn.SetPongHandler(func(string) error {       // 这里设置 Pong 消息的处理器 & 如果没有收到 Pong 消息 那就会读到 Error
-		fmt.Println("Receive pong message...")
 		c.conn.SetReadDeadline(time.Now().Add(pongWait))
 		return nil
 	})
@@ -76,7 +74,6 @@ func (c *Client) writeMessageToClient() {
 				return
 			}
 		case <-ticker.C:
-			log.Println("Sending Ping message to client ...")
 			c.conn.SetWriteDeadline(time.Now().Add(writeWait))
 			if err := c.conn.WriteMessage(websocket.PingMessage, nil); err != nil {
 				return

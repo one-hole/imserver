@@ -15,6 +15,11 @@ type Release struct {
 	Server string `yaml:server`
 }
 
+type Redis struct {
+	Addr string `yaml:"addr"`
+	DB   string `yaml:"db"`
+}
+
 type Socket struct {
 	Port string `yaml:"port"`
 	Path string `yaml:"path"`
@@ -40,6 +45,7 @@ type Conf struct {
 	Rabbit  `yaml:"RabbitMQ"`
 	Release `yaml:"Release"`
 	MySQL   `yaml:"MySQL"`
+	Redis   `yaml:"Redis"`
 }
 
 func Instance() *Conf {

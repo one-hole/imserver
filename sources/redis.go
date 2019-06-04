@@ -2,6 +2,7 @@ package sources
 
 import (
 	"github.com/go-redis/redis"
+	"github.com/one-hole/imserver/config"
 	"github.com/one-hole/imserver/sockets"
 )
 
@@ -25,13 +26,21 @@ func RedisInstance() *RedisSource {
 }
 
 func newRedisInstance() *RedisSource {
-	return &RedisSource{
+
+	source := &RedisSource{
 		client: redis.NewClient(&redis.Options{
-			Addr:     "localhost:6379",
-			Password: "",
-			DB:       12,
+			Addr: config.Instance().Redis.Addr,
+			DB:   12,
 		}),
 	}
+
+	_, err := source.client.Ping().Result()
+
+	if err != nil {
+		panic(err)
+	}
+
+	return source
 }
 
 // RunRedis will called in goroutines

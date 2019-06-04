@@ -14,7 +14,7 @@ func Show(c *gin.Context) {
 		return
 	}
 	tenant := loadTenant(uint(id))
-	
+
 	c.JSON(200, gin.H{
 		"name": tenant.Name,
 	})
