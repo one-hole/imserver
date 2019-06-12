@@ -1,16 +1,13 @@
 package models
 
-import (
-	"github.com/jinzhu/gorm"
-)
-
 // Server belongs_to Tenant
 type Server struct {
-	gorm.Model
+	ID       uint   `gorm:"primary_key" json:"id"`
 	TenantID uint   `gorm:"column:tenant_id;index"`
-	Tenant   Tenant `gorm:"foreignkey:TenantID"`
-	Enable   bool   `gorm:"default:true"`
-	Address  string
+	Host     string `gorm:"column:host" json:"host"`
+	Tag      string `gorm:"column:tag"`
+
+	Tenant Tenant `gorm:"foreignkey:TenantID"`
 }
 
 // TableName set table's name

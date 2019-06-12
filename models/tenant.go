@@ -1,12 +1,15 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 // Tenant - model which will holds tenant's basic info
 type Tenant struct {
 	ID       uint      `gorm:"primary_key" json:"id"`
 	ExpireAt time.Time `gorm:"column:expire_time" json:"expire_at"`
 	APIKey   string    `gorm:"column:api_key;unique_index" sql:"not null" json:"api_key"`
+	Servers  []Server
 }
 
 // TableName set table's name
@@ -38,4 +41,17 @@ func (tenant *Tenant) valid() bool {
 		return false
 	}
 	return true
+}
+
+// Hosts return's tenants servers
+func (tenant *Tenant) Hosts() map[string]bool {
+	hosts := make(map[string]bool)
+
+	DB.Model(&tenant).Related(&tenant.Servers)
+
+	for _, server := range tenant.Servers {
+		hosts[server.Host] = true
+	}
+
+	return hosts
 }

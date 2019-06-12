@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	writeWait      = 5 * time.Second
-	pongWait       = 6 * time.Second
+	writeWait      = 50 * time.Second
+	pongWait       = 60 * time.Second
 	pingPeriod     = (pongWait * 9) / 10
 	maxMessageSize = 512
 )
@@ -22,6 +22,7 @@ type Client struct {
 	messages chan []byte
 }
 
+// Conn return physical connection
 func (c *Client) Conn() *websocket.Conn {
 	return c.conn
 }
@@ -49,6 +50,7 @@ func (c *Client) readMessageFromClient() {
 
 }
 
+// 写之前需要检查一下 Key 是否过期 过期需要切断连接
 func (c *Client) writeMessageToClient() {
 	ticker := time.NewTicker(pingPeriod) // 每隔 pingPeriod 触发一次 Ping 操作
 	defer func() {

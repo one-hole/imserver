@@ -40,12 +40,6 @@ func newManager(name string) *sockets.ClientManager {
 	return manager
 }
 
-// func runManager(m *sockets.ClientManager, rabbitRouteKey string) {
-// 	go sources.RunRedis(m)
-// 	go sources.RunRabbit(m, rabbitRouteKey)
-// 	go m.Exec()
-// }
-
 func execManager(m *sockets.ClientManager, redisChannel string, rabbitRouteKey string) error {
 	if "" != redisChannel {
 		go sources.RunRedis(m)
