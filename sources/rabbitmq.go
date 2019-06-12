@@ -13,8 +13,8 @@ import (
 
 	"github.com/one-hole/imserver/config"
 	"github.com/one-hole/imserver/sockets"
-	"github.com/streadway/amqp"
 	"github.com/one-hole/imserver/utils"
+	"github.com/streadway/amqp"
 )
 
 var instance *RabbitSource
@@ -49,6 +49,11 @@ RunRabbit will call in goroutines
 exchangeName | routingKey
 */
 func RunRabbit(manager *sockets.ClientManager, routeKey string) {
+
+	if "" == routeKey {
+		return
+	}
+
 	channel, err := RabbitInstance().conn.Channel()
 	utils.FailOnError(err, "Failed to open a Channel")
 	defer channel.Close()

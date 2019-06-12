@@ -53,7 +53,7 @@ func Init() {
 		config.Instance().MySQL.Port,
 		config.Instance().MySQL.User,
 		config.Instance().MySQL.Password,
-		"socket-server",
+		"ai-esports-dev",
 	)
 }
 

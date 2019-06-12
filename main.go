@@ -22,8 +22,9 @@ func main() {
 
 	go api.Run()
 
-	runManager(newManager("default"), "rw-hz-odds-routing")
-	runManager(newManager("tenants"), "rw-hk-tenants-routing")
+	execManager(newManager("default"), "", "")
+	execManager(newManager("csgo"), "", "")
+	execManager(newManager("dota2"), "", "")
 
 	models.Init()
 
@@ -39,8 +40,22 @@ func newManager(name string) *sockets.ClientManager {
 	return manager
 }
 
-func runManager(m *sockets.ClientManager, rabbitRouteKey string) {
-	go sources.RunRedis(m)
-	go sources.RunRabbit(m, rabbitRouteKey)
+// func runManager(m *sockets.ClientManager, rabbitRouteKey string) {
+// 	go sources.RunRedis(m)
+// 	go sources.RunRabbit(m, rabbitRouteKey)
+// 	go m.Exec()
+// }
+
+func execManager(m *sockets.ClientManager, redisChannel string, rabbitRouteKey string) error {
+	if "" != redisChannel {
+		go sources.RunRedis(m)
+	}
+
+	if "" != rabbitRouteKey {
+		go sources.RunRabbit(m, rabbitRouteKey)
+	}
+
 	go m.Exec()
+
+	return nil
 }

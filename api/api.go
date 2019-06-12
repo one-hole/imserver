@@ -11,7 +11,6 @@ import (
 	"github.com/one-hole/imserver/api/admin/managers"
 	"github.com/one-hole/imserver/api/admin/mysql"
 	"github.com/one-hole/imserver/api/ws"
-	"github.com/one-hole/imserver/config"
 )
 
 // Run start Gin server
@@ -28,7 +27,7 @@ func Run() {
 }
 
 func getRouter() *gin.Engine {
-	gin.SetMode(config.Instance().Release.Mode)
+	gin.SetMode("debug")
 	router := gin.Default()
 	adminGroup := router.Group("")
 	{
