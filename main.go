@@ -23,8 +23,8 @@ func main() {
 	go api.Run()
 
 	execManager(newManager("default"), "", "")
-	execManager(newManager("csgo"), "", "")
-	execManager(newManager("dota2"), "", "")
+	execManager(newManager("csgo"), "aiesports-csgo-websocket", "")
+	execManager(newManager("dota2"), "aiesports-dota2-websocket", "")
 
 	models.Init()
 
@@ -42,7 +42,7 @@ func newManager(name string) *sockets.ClientManager {
 
 func execManager(m *sockets.ClientManager, redisChannel string, rabbitRouteKey string) error {
 	if "" != redisChannel {
-		go sources.RunRedis(m)
+		go sources.RunRedis(m, redisChannel)
 	}
 
 	if "" != rabbitRouteKey {

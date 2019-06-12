@@ -35,9 +35,12 @@ func newRedisInstance() *RedisSource {
 }
 
 // RunRedis will called in goroutines
-func RunRedis(manager *sockets.ClientManager) {
+func RunRedis(manager *sockets.ClientManager, channelName string) {
+	if "" == channelName {
+		return
+	}
 
-	pubsub := RedisInstance().client.Subscribe(pushChannelName)
+	pubsub := RedisInstance().client.Subscribe(channelName)
 	defer pubsub.Close()
 
 	ch := pubsub.Channel()

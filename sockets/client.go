@@ -41,6 +41,7 @@ func (c *Client) readMessageFromClient() {
 		ip, _, _ := net.SplitHostPort(c.conn.RemoteAddr().String())
 		valid := verifyConn(ip)
 		if !valid {
+			c.conn.Close() // 这里主动释放连接资源
 			return errors.New("address not valid now")
 		}
 		c.conn.SetReadDeadline(time.Now().Add(pongWait))
