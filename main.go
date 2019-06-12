@@ -36,7 +36,7 @@ func newManager(name string) *sockets.ClientManager {
 		name = "default"
 	}
 	manager := sockets.NewManger()
-	models.Managers[name] = manager
+	sockets.Managers[name] = manager
 	return manager
 }
 

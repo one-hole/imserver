@@ -1,6 +1,7 @@
 package ws
 
 import (
+	"log"
 	"net"
 
 	"github.com/gin-gonic/gin"
@@ -15,6 +16,7 @@ func Index() gin.HandlerFunc {
 	fn := func(c *gin.Context) {
 
 		if !verify(c) {
+			log.Println("error here")
 			return
 		}
 
@@ -26,7 +28,7 @@ func Index() gin.HandlerFunc {
 
 func loadManager(c *gin.Context) *sockets.ClientManager {
 	name := c.Param("name")
-	return models.ManagerByName(name)
+	return sockets.ManagerByName(name)
 }
 
 func verify(c *gin.Context) bool {

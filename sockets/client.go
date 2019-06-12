@@ -1,16 +1,17 @@
 package sockets
 
 import (
-	"fmt"
+	"errors"
 	"log"
+	"net"
 	"time"
 
 	"github.com/gorilla/websocket"
 )
 
 const (
-	writeWait      = 50 * time.Second
-	pongWait       = 60 * time.Second
+	writeWait      = 5 * time.Second
+	pongWait       = 6 * time.Second
 	pingPeriod     = (pongWait * 9) / 10
 	maxMessageSize = 512
 )
@@ -28,6 +29,8 @@ func (c *Client) Conn() *websocket.Conn {
 }
 
 // 这里暂时读消息只读心跳包
+// 收到 Pong 的时候需要检查一下连接的地址是否依旧可用（Key过期）
+// 暂时依旧使用 DB 来实现这个功能
 func (c *Client) readMessageFromClient() {
 	defer func() {
 		c.manager.unregister <- c
@@ -35,7 +38,11 @@ func (c *Client) readMessageFromClient() {
 	c.conn.SetReadLimit(maxMessageSize)
 	c.conn.SetReadDeadline(time.Now().Add(pongWait)) // 从 conn读取 最多等待 pongWait 的时间 & 这个语句用来第一次
 	c.conn.SetPongHandler(func(string) error {       // 这里设置 Pong 消息的处理器 & 如果没有收到 Pong 消息 那就会读到 Error
-		fmt.Println("Receive pong message...")
+		ip, _, _ := net.SplitHostPort(c.conn.RemoteAddr().String())
+		valid := verifyConn(ip)
+		if !valid {
+			return errors.New("address not valid now")
+		}
 		c.conn.SetReadDeadline(time.Now().Add(pongWait))
 		return nil
 	})
