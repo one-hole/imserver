@@ -1,7 +1,6 @@
 package ws
 
 import (
-	"log"
 	"net"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +15,9 @@ func Index() gin.HandlerFunc {
 	fn := func(c *gin.Context) {
 
 		if !verify(c) {
-			log.Println("error here")
+			c.JSON(400, gin.H{
+				"error_code": 4001,
+			})
 			return
 		}
 
