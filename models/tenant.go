@@ -29,7 +29,7 @@ func (tenant *Tenant) Verify(key string) bool {
 
 // recordByKey 查找商户
 func (tenant *Tenant) recordByKey(key string) error {
-	if result := DB.Where(&Tenant{APIKey: key}).First(&tenant); result.Error != nil {
+	if result := db.Where(&Tenant{APIKey: key}).First(&tenant); result.Error != nil {
 		return result.Error
 	}
 	return nil
@@ -47,7 +47,7 @@ func (tenant *Tenant) valid() bool {
 func (tenant *Tenant) Hosts() map[string]bool {
 	hosts := make(map[string]bool)
 
-	DB.Model(&tenant).Related(&tenant.Servers)
+	db.Model(&tenant).Related(&tenant.Servers)
 
 	for _, server := range tenant.Servers {
 		hosts[server.Host] = true

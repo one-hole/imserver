@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	DB *gorm.DB
+	db *gorm.DB
 )
 
 func openDB(host, port, username, password, name string) *gorm.DB {
@@ -34,30 +34,35 @@ func openDB(host, port, username, password, name string) *gorm.DB {
 }
 
 func configureDB(db *gorm.DB) {
-	db.DB().SetMaxOpenConns(config.Instance().MySQL.Connections)
-	db.DB().SetMaxIdleConns(config.Instance().MySQL.Idles)
+	db.DB().SetMaxIdleConns(config.MySQL.Idles)
+	db.DB().SetMaxOpenConns(config.MySQL.Connections)
 	db.DB().SetConnMaxLifetime(time.Minute * 1)
 }
 
 // SQLIsWoking returns the boolean state of db connection
 func SQLIsWoking() bool {
-	if DB == nil {
+	if db == nil {
 		return false
 	}
 	return true
 }
 
+// DB for exports db outside
+func DB() *gorm.DB {
+	return db
+}
+
 // Init starts database connections
 func Init() {
-	DB = openDB(
-		config.Instance().MySQL.Host,
-		config.Instance().MySQL.Port,
-		config.Instance().MySQL.User,
-		config.Instance().MySQL.Password,
-		"ai-esports-dev",
+	db = openDB(
+		config.MySQL.Host,
+		config.MySQL.Port,
+		config.MySQL.Username,
+		config.MySQL.Password,
+		config.MySQL.Name,
 	)
 }
 
 func close() {
-	DB.Close()
+	db.Close()
 }

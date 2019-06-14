@@ -8,6 +8,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/gorilla/websocket v1.4.0
 	github.com/jinzhu/gorm v1.9.8
+	github.com/spf13/viper v1.4.0
 	github.com/streadway/amqp v0.0.0-20190404075320-75d898a42a94
 	gopkg.in/yaml.v2 v2.2.2
 )

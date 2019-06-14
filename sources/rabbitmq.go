@@ -84,7 +84,7 @@ func RunRabbit(manager *sockets.ClientManager, routeKey string) {
 
 // Private
 func newInstance() *RabbitSource {
-	conn, err := amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:5672/", config.Instance().Rabbit.User, config.Instance().Rabbit.Password, config.Instance().Rabbit.Host))
+	conn, err := amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:%s/", config.Rabbit.User, config.Rabbit.Password, config.Rabbit.Host, config.Rabbit.Port))
 	if err != nil {
 		log.Fatal(err)
 	}

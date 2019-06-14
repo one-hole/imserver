@@ -17,7 +17,7 @@ func (Server) TableName() string {
 
 // RecordByHost 通过 Host 查找 Server
 func (server *Server) RecordByHost(host string) error {
-	if result := DB.Where(&Server{Host: host}).First(&server); result.Error != nil {
+	if result := db.Where(&Server{Host: host}).First(&server); result.Error != nil {
 		return result.Error
 	}
 	return nil
@@ -25,6 +25,6 @@ func (server *Server) RecordByHost(host string) error {
 
 // Valid true valid & false invalid
 func (server *Server) Valid() bool {
-	DB.Model(&server).Related(&server.Tenant)
+	db.Model(&server).Related(&server.Tenant)
 	return server.Tenant.valid()
 }
