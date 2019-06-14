@@ -1,10 +1,20 @@
+### How to start project
+
+* Dev env
+  ```
+  GO_ENV=debug go run main.go
+  ```
+  
+* Docker env for dev
+---
+
 运行环境依赖如下
 
 * Redis
 * RabbitMQ
 
 ---
-User Story 如下
+User Story 如下  
 
 *  可以针对某个连接直接推送
 *  可以针对某些连接直接推送

@@ -1,7 +1,6 @@
 package models
 
 import (
-	"log"
 	"time"
 )
 
@@ -38,10 +37,6 @@ func (tenant *Tenant) recordByKey(key string) error {
 
 // expired 判断 tenant 是否 valid?
 func (tenant *Tenant) valid() bool {
-
-	log.Println(tenant.ExpireAt.Unix())
-	log.Println(time.Now().Unix())
-
 	if tenant.ExpireAt.Unix() < time.Now().Unix() {
 		return false
 	}

@@ -5,57 +5,57 @@ import (
 	"log"
 
 	"github.com/one-hole/imserver/utils"
-	yaml "gopkg.in/yaml.v2"
+	"github.com/spf13/viper"
+	"gopkg.in/yaml.v2"
 )
 
-var instance *Conf
+// MySQL *mysql 的实例
+var (
+	config *viper.Viper
+	MySQL  *mysql
+	Redis  *redis
+	Rabbit *rabbit
+)
 
-type Release struct {
-	Mode   string `yaml:mode`
-	Server string `yaml:server`
+type mySQL struct {
+	Host        string
+	Port        string
+	Name        string
+	Username    string
+	Password    string
+	Connections int
+	Idles       int
 }
 
-type Socket struct {
-	Port string `yaml:"port"`
-	Path string `yaml:"path"`
+type redis struct {
+	Host string
+	Port string
 }
 
-type Rabbit struct {
-	Host     string `yaml:"host"`
-	User     string `yaml:"user"`
-	Password string `yaml:"password"`
+type rabbit struct {
+	Host     string
+	Port     string
+	User     string
+	Password string
 }
 
-type MySQL struct {
-	Host        string `yaml:"host"`
-	Port        string `yaml:"port"`
-	User        string `yaml:"user"`
-	Password    string `yaml:"password"`
-	Connections int    `yaml:"connections"`
-	Idles       int    `yaml:"idles"`
-}
+func init() {
 
-type Conf struct {
-	Socket  `yaml:"Socket"`
-	Rabbit  `yaml:"RabbitMQ"`
-	Release `yaml:"Release"`
-	MySQL   `yaml:"MySQL"`
-}
+	config = viper.New()
+	config.SetConfigFile("./config/config.yml")
 
-func Instance() *Conf {
-	if instance == nil {
-		instance = Config()
+	if err := config.ReadInConfig(); err != nil {
+		panic(err)
 	}
-	return instance
+
+	loadMySQLConfig()
+	loadRedisConfig()
 }
 
-func Config() *Conf {
-	yamlFile, err := ioutil.ReadFile("config/config.yml")
-	utils.FailOnError(err, "Open config file err")
-	conf := new(Conf)
-	err = yaml.Unmarshal(yamlFile, conf)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	return conf
+func loadMySQLConfig() {
+
+}
+
+func loadRedisConfig() {
+
 }
