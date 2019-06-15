@@ -1,6 +1,7 @@
 package config
 
 import (
+	"log"
 	"os"
 	"strconv"
 
@@ -48,6 +49,8 @@ func init() {
 
 	loadMySQLConfig()
 	loadRedisConfig()
+
+	log.Println(MySQL.Host)
 }
 
 func loadMySQLConfig() {

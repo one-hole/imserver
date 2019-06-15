@@ -26,7 +26,7 @@ func openDB(host, port, username, password, name string) *gorm.DB {
 	db, err := gorm.Open("mysql", dbConfig)
 
 	if err != nil {
-		log.Println(err)
+		log.Printf("MySQL Connection error: %s\n", err)
 		return nil
 	}
 	configureDB(db)

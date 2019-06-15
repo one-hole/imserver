@@ -10,5 +10,5 @@ require (
 	github.com/jinzhu/gorm v1.9.8
 	github.com/spf13/viper v1.4.0
 	github.com/streadway/amqp v0.0.0-20190404075320-75d898a42a94
-	gopkg.in/yaml.v2 v2.2.2
+	github.com/toorop/gin-logrus v0.0.0-20190324082946-8887861896bb // indirect
 )

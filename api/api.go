@@ -1,11 +1,11 @@
 package api
 
 import (
+	"os"
 	"net/http"
 	"time"
 
 	"github.com/one-hole/imserver/api/admin/tenants"
-
 	"github.com/gin-gonic/gin"
 	"github.com/one-hole/imserver/api/admin/connections"
 	"github.com/one-hole/imserver/api/admin/managers"
@@ -26,9 +26,14 @@ func Run() {
 	s.ListenAndServe()
 }
 
+func settingGin() {
+	gin.SetMode(os.Getenv("GO_ENV"))
+	gin.ForceConsoleColor()
+}
+
 func getRouter() *gin.Engine {
-	gin.SetMode("debug")
 	router := gin.Default()
+
 	adminGroup := router.Group("")
 	{
 		adminGroup.GET("/mysql", mysql.Index)
