@@ -4,3 +4,4 @@ config/config_sta.yml
 config/config_dev.yml
 .idea/
 .vscode/
+logs/
