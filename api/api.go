@@ -20,7 +20,7 @@ import (
 func Run() {
 	router := getRouter()
 	s := &http.Server{
-		Addr:           "0.0.0.0:8080",
+		Addr:           "0.0.0.0:8000",
 		Handler:        router,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,

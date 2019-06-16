@@ -5,29 +5,27 @@
   GO_ENV=debug go run main.go
   ```
   
-* Docker env for dev
+* Docker env for debug
+  ```
+  docker run -e GO_ENV=release -v "/$(pwd)/config/config_docker.yml:/root/config/config.yml" -p 8000:8000 7064805/imserver:latest
+  ```
+
+* Docker env for release
+  ```
+  docker run -e GO_ENV=release -v "/$(pwd)/config/config_docker.yml:/root/config/config.yml" -v "/$(pwd)/logs:/root/logs" -p 8000:8000 7064805/imserver:latest
+  ```
+
+### How to customize your log format
+
+* [gin-logrus](https://github.com/w-zengtao/gin-logrus/blob/master/logger.go) rewrite function `Logger()`
+* More details in [logrus](https://github.com/sirupsen/logrus)
 ---
 
 运行环境依赖如下
 
 * Redis
+* MySQL
 * RabbitMQ
-
----
-User Story 如下  
-
-*  可以针对某个连接直接推送
-*  可以针对某些连接直接推送
-*  可以针对某个房间直接推送
-*  可以针对某个类房间直接推送
-
-Client 对于某个「客户端」连接的抽象
-
-ClientManger 管理所有的连接 & 连接的释放
-* 推送的数据源应该来自于 RabbitMQ & Redis
-* 连接可以加入、可以离开某个房间
-* 消息是针对房间进行推送
-* 房间的建立时机
 
 ---
 
@@ -35,10 +33,14 @@ ClientManger 管理所有的连接 & 连接的释放
 使用到的三方库如下
 
 * [Redis](https://github.com/go-redis/redis)
+* [Gorm](https://github.com/jinzhu/gorm)
 * [RabbitMQ](https://github.com/streadway/amqp)
 * [JSON](https://github.com/tidwall/gjson)
 * [WebSocket](https://github.com/gorilla/websocket)
-* [YAML](https://github.com/go-yaml/yaml)
+* ~~[YAML](https://github.com/go-yaml/yaml)~~
+* [Gin](https://github.com/gin-gonic/gin)
+* [Viper](https://github.com/spf13/viper)
+* [Logrus](https://github.com/sirupsen/logru)
 
 ----
 

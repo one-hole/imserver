@@ -15,13 +15,12 @@ var (
 )
 
 func openDB(host, port, username, password, name string) *gorm.DB {
-	dbConfig := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=true&loc=Asia%sShangHai",
+	dbConfig := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=true&loc=Local",
 		username,
 		password,
 		host,
 		port,
 		name,
-		"%2F",
 	)
 	db, err := gorm.Open("mysql", dbConfig)
 

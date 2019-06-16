@@ -166,8 +166,6 @@ github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXf
 github.com/stretchr/testify v1.3.0 h1:TivCn/peBQ7UY8ooIcPgZFpTNSz0Q2U6UrFlUfqbe0Q=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
-github.com/toorop/gin-logrus v0.0.0-20190324082946-8887861896bb h1:tafzp7Ps8UI91PThlRjtZzQUzPh4ajZg5IyAoYDfbKc=
-github.com/toorop/gin-logrus v0.0.0-20190324082946-8887861896bb/go.mod h1:X3Dd1SB8Gt1V968NTzpKFjMM6O8ccta2NPC6MprOxZQ=
 github.com/ugorji/go v1.1.4 h1:j4s+tAvLfL3bZyefP2SEWmhBzmuIlH/eqNuPdFPgngw=
 github.com/ugorji/go v1.1.4/go.mod h1:uQMGLiO92mf5W77hV/PUCpI3pbzQx3CRekS0kk+RGrc=
 github.com/w-zengtao/gin-logrus v0.0.0-20190615073612-fa2fc00ff72d h1:/I9YifjgDh59oK4qnCd0156UrLr4+j39IGKI3YFoA5Q=

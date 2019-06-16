@@ -2,6 +2,7 @@ config/config.yml
 config/config_pro.yml
 config/config_sta.yml
 config/config_dev.yml
+config/config_docker.yml
 .idea/
 .vscode/
 logs/

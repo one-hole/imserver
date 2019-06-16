@@ -51,6 +51,7 @@ func init() {
 	loadRedisConfig()
 
 	log.Println(MySQL.Host)
+	log.Println(MySQL.Name)
 }
 
 func loadMySQLConfig() {
@@ -59,6 +60,7 @@ func loadMySQLConfig() {
 	idles, _ := strconv.Atoi(conf["idles"])
 
 	MySQL = &mySQL{
+		Host:        conf["host"],
 		Port:        conf["port"],
 		Name:        conf["name"],
 		Username:    conf["username"],
