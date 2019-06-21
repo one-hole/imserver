@@ -1,7 +1,9 @@
 package sources
 
 import (
+	"fmt"
 	"github.com/go-redis/redis"
+	"github.com/one-hole/imserver/config"
 	"github.com/one-hole/imserver/sockets"
 )
 
@@ -16,6 +18,12 @@ type RedisSource struct {
 	client *redis.Client
 }
 
+// RedisPing send ping message to redis
+func RedisPing() error {
+	_, err := redisInstance.client.Ping().Result()
+	return err
+}
+
 // RedisInstance returns the singleton instance of Redis
 func RedisInstance() *RedisSource {
 	if redisInstance == nil {
@@ -27,8 +35,7 @@ func RedisInstance() *RedisSource {
 func newRedisInstance() *RedisSource {
 	return &RedisSource{
 		client: redis.NewClient(&redis.Options{
-			Addr:     "localhost:6379",
-			Password: "",
+			Addr:     fmt.Sprintf("%s:%s", config.Redis.Host, config.Redis.Port),
 			DB:       12,
 		}),
 	}

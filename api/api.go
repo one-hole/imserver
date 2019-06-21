@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/one-hole/imserver/api/admin/redis"
 	"net/http"
 	"os"
 	"time"
@@ -57,6 +58,7 @@ func getRouter() *gin.Engine {
 	adminGroup := router.Group("")
 	{
 		adminGroup.GET("/mysql", mysql.Index)
+		adminGroup.GET("/redis", redis.Index)
 
 		adminGroup.GET("/connections", connections.Index)
 		adminGroup.DELETE("/managers/:manager_id/connections/:id", connections.Delete)
