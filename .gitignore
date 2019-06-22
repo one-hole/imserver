@@ -5,4 +5,4 @@ config/config_dev.yml
 config/config_docker.yml
 .idea/
 .vscode/
-logs/
+logs/*.log

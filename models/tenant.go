@@ -1,6 +1,8 @@
 package models
 
 import (
+	"fmt"
+	"github.com/one-hole/imserver/logs"
 	"time"
 )
 
@@ -21,9 +23,14 @@ func (Tenant) TableName() string {
 // 1. 能找到商户
 // 2. APIKey 没有过期
 func (tenant *Tenant) Verify(key string) bool {
+	
+	logs.WebSocketLogger.Info(fmt.Sprintf("WebSocket: Tenant Key is: %s", key))
+	
 	if err := tenant.recordByKey(key); err != nil {
 		return false
 	}
+	
+	logs.WebSocketLogger.Info(fmt.Sprintf("WebSocket: Tenant Id is: %d", tenant.ID))
 	return tenant.valid()
 }
 

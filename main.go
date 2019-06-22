@@ -5,6 +5,7 @@ import (
 	"os"
 
 	_ "github.com/one-hole/imserver/config"
+	_ "github.com/one-hole/imserver/logs"
 
 	"github.com/one-hole/imserver/api"
 	"github.com/one-hole/imserver/models"

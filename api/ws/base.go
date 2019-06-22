@@ -1,8 +1,10 @@
 package ws
 
 import (
+	"fmt"
+	"github.com/one-hole/imserver/logs"
 	"net"
-
+	
 	"github.com/gin-gonic/gin"
 	"github.com/one-hole/imserver/models"
 	"github.com/one-hole/imserver/sockets"
@@ -43,10 +45,12 @@ func verify(c *gin.Context) bool {
 	}
 
 	if !tenant.Verify(key) {
+		logs.WebSocketLogger.Info(fmt.Sprintf("WebSocket : Tenant &d Verify false", tenant.ID))
 		return false
 	}
-
+	
 	if _, ok := tenant.Hosts()[ip]; !ok {
+		logs.WebSocketLogger.Info(fmt.Sprintf("WebSocket : IP (%s) was not in whitelist"), ip)
 		return false
 	}
 
