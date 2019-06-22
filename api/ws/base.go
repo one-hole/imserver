@@ -3,7 +3,6 @@ package ws
 import (
 	"fmt"
 	"github.com/one-hole/imserver/logs"
-	"net"
 	
 	"github.com/gin-gonic/gin"
 	"github.com/one-hole/imserver/models"
@@ -36,7 +35,7 @@ func loadManager(c *gin.Context) *sockets.ClientManager {
 
 func verify(c *gin.Context) bool {
 
-	ip, _, _ := net.SplitHostPort(c.Request.RemoteAddr)
+	//ip, _, _ := net.SplitHostPort(c.Request.RemoteAddr)
 	tenant := &models.Tenant{}
 	key, exist := c.GetQuery("key")
 
@@ -49,10 +48,11 @@ func verify(c *gin.Context) bool {
 		return false
 	}
 	
-	if _, ok := tenant.Hosts()[ip]; !ok {
-		logs.WebSocketLogger.Info(fmt.Sprintf("WebSocket : IP (%s) was not in whitelist"), ip)
-		return false
-	}
+	// 暂时去除白名单校验的功能
+	//if _, ok := tenant.Hosts()[ip]; !ok {
+	//	logs.WebSocketLogger.Info(fmt.Sprintf("WebSocket : IP (%s) was not in whitelist", ip))
+	//	return false
+	//}
 
 	return true
 }
