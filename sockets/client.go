@@ -1,11 +1,9 @@
 package sockets
 
 import (
-	"errors"
 	"log"
-	"net"
 	"time"
-
+	
 	"github.com/gorilla/websocket"
 )
 
@@ -38,12 +36,12 @@ func (c *Client) readMessageFromClient() {
 	c.conn.SetReadLimit(maxMessageSize)
 	c.conn.SetReadDeadline(time.Now().Add(pongWait)) // 从 conn读取 最多等待 pongWait 的时间 & 这个语句用来第一次
 	c.conn.SetPongHandler(func(string) error {       // 这里设置 Pong 消息的处理器 & 如果没有收到 Pong 消息 那就会读到 Error
-		ip, _, _ := net.SplitHostPort(c.conn.RemoteAddr().String())
-		valid := verifyConn(ip)
-		if !valid {
-			c.conn.Close() // 这里主动释放连接资源
-			return errors.New("address not valid now")
-		}
+		//ip, _, _ := net.SplitHostPort(c.conn.RemoteAddr().String())
+		//valid := verifyConn(ip)
+		//if !valid {
+		//	c.conn.Close() // 这里主动释放连接资源
+		//	return errors.New("address not valid now")
+		//}
 		c.conn.SetReadDeadline(time.Now().Add(pongWait))
 		return nil
 	})
