@@ -28,6 +28,7 @@ func main() {
 	execManager(newManager("default"), "", "")
 	execManager(newManager("csgo"), "aiesports-csgo-websocket", "")
 	execManager(newManager("dota2"), "aiesports-dota2-websocket", "")
+	execManager(newManager("dota2-v2"), "aiesports-dota2-websocket-v2", "")
 
 	models.Init()
 
