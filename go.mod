@@ -10,6 +10,5 @@ require (
 	github.com/jinzhu/gorm v1.9.8
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/viper v1.4.0
-	github.com/streadway/amqp v0.0.0-20190404075320-75d898a42a94
 	github.com/w-zengtao/gin-logrus v0.0.0-20190615073612-fa2fc00ff72d
 )

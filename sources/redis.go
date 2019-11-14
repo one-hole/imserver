@@ -2,16 +2,13 @@ package sources
 
 import (
 	"fmt"
+
 	"github.com/go-redis/redis"
 	"github.com/one-hole/imserver/config"
 	"github.com/one-hole/imserver/sockets"
 )
 
 var redisInstance *RedisSource
-
-var (
-	pushChannelName = "tenant-websocket"
-)
 
 // RedisSource connected to redis & sub the messages
 type RedisSource struct {
@@ -35,8 +32,8 @@ func RedisInstance() *RedisSource {
 func newRedisInstance() *RedisSource {
 	return &RedisSource{
 		client: redis.NewClient(&redis.Options{
-			Addr:     fmt.Sprintf("%s:%s", config.Redis.Host, config.Redis.Port),
-			DB:       12,
+			Addr: fmt.Sprintf("%s:%s", config.Redis.Host, config.Redis.Port),
+			DB:   12,
 		}),
 	}
 }

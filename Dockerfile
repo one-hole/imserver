@@ -1,4 +1,4 @@
-FROM golang:1.12.6 AS builder
+FROM golang:1.13.4 AS builder
 RUN go version
 
 COPY . /imserver
@@ -15,5 +15,5 @@ WORKDIR /root/
 
 COPY --from=builder /imserver/imserver .
 
-EXPOSE 8000
+EXPOSE 8080
 ENTRYPOINT ["./imserver"]

@@ -1,10 +1,11 @@
 package api
 
 import (
-	"github.com/one-hole/imserver/api/admin/redis"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/one-hole/imserver/api/admin/redis"
 
 	ginlogrus "github.com/w-zengtao/gin-logrus"
 
@@ -21,7 +22,7 @@ import (
 func Run() {
 	router := getRouter()
 	s := &http.Server{
-		Addr:           "0.0.0.0:8000",
+		Addr:           ":8080",
 		Handler:        router,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,

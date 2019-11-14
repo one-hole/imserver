@@ -49,10 +49,6 @@ func execManager(m *sockets.ClientManager, redisChannel string, rabbitRouteKey s
 		go sources.RunRedis(m, redisChannel)
 	}
 
-	if "" != rabbitRouteKey {
-		go sources.RunRabbit(m, rabbitRouteKey)
-	}
-
 	go m.Exec()
 
 	return nil

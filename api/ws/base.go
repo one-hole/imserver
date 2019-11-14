@@ -2,16 +2,14 @@ package ws
 
 import (
 	"fmt"
+
 	"github.com/one-hole/imserver/logs"
-	
+
 	"github.com/gin-gonic/gin"
 	"github.com/one-hole/imserver/models"
 	"github.com/one-hole/imserver/sockets"
 )
 
-// Index - handler of WS /ws and WS /ws/:name
-// ws/dota2
-// ws/csgo
 func Index() gin.HandlerFunc {
 	fn := func(c *gin.Context) {
 
@@ -47,7 +45,7 @@ func verify(c *gin.Context) bool {
 		logs.WebSocketLogger.Info(fmt.Sprintf("WebSocket : Tenant &d Verify false", tenant.ID))
 		return false
 	}
-	
+
 	// 暂时去除白名单校验的功能
 	//if _, ok := tenant.Hosts()[ip]; !ok {
 	//	logs.WebSocketLogger.Info(fmt.Sprintf("WebSocket : IP (%s) was not in whitelist", ip))
